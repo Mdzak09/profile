@@ -53,7 +53,7 @@ func main() {
 	// 	return
 	// }
 
-	db, err := sql.Open("postgres", "postgres://usermessages_user:baAHOs1dyGNtrRHDynaAZvlqAN7nB4vC@dpg-cl7j1iquuipc73ehmc60-a/usermessages")
+	db, err := sql.Open("postgres", "postgres://usermessages_k0v6_user:E7FQKLQ0MhPxlg4Syn8DnWWsMLwHQvVJ@dpg-cl7lsliuuipc73eij48g-a/usermessages_k0v6")
 	if err != nil {
 		fmt.Println(err)
 	}
