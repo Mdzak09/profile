@@ -39,7 +39,7 @@ func (app *application) index(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	tmpl, err := template.ParseFiles("m1.html")
+	tmpl, err := template.ParseFiles("myown2/m1.html")
 	if err != nil {
 		fmt.Println("could not find m1")
 		return
