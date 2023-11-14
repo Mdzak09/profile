@@ -68,6 +68,6 @@ func main() {
 	fmt.Println("Succesfully Connected to Database")
 
 	http.HandleFunc("/index", app.index)
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./"))))
+	http.Handle("/static/", http.StripPrefix("/static/myown2/", http.FileServer(http.Dir("./"))))
 	http.ListenAndServe(":8000", nil)
 }
