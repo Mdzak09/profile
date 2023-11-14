@@ -14,6 +14,7 @@ type application struct {
 }
 
 func (app *application) index(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Inside index function")
 	if r.Method == "POST" {
 		r.ParseForm()
 		name := r.FormValue("Name")
