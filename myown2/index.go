@@ -22,7 +22,7 @@ func (app *application) index(w http.ResponseWriter, r *http.Request) {
 		msg := r.FormValue("message")
 		fmt.Println(name + "," + phoneNo + "," + msg)
 
-		query := `INSERT INTO messages (name, phoneno, msg) VALUES ($1, $2, $3);`
+		query := `INSERT INTO "MESSAGES" ("Name", "PhoneNo", "Msg") VALUES ($1, $2, $3);`
 		_, err := app.db.Exec(query, name, phoneNo, msg)
 		if err != nil { 
 			fmt.Println(err) 
