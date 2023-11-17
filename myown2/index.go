@@ -20,24 +20,14 @@ func (app *application) index(w http.ResponseWriter, r *http.Request) {
 		name := r.FormValue("Name")
 		phoneNo := r.FormValue("phone")
 		msg := r.FormValue("message")
+		fmt.Println(name + "," + phoneNo + "," + msg)
 
-		// 	stmt, err := app.db.Prepare("INSERT INTO MESSAGES (Name, PhoneNo, Msg) values(?, ?, ?);")
-		// 	if err != nil {
-		// 		fmt.Printf("%v", err)
-		// 	} else {
-		// 		defer stmt.Close()
-		// 		_, err = stmt.Exec(name, phoneNo, msg)
-		// 		if err != nil {
-		// 			fmt.Printf("%v", err)
-		// 		}
-		// 	}
-		// }
-
-		query := "INSERT INTO MESSAGES (Name, PhoneNo, Msg) values($1, $2, $3)"
-		err := app.db.QueryRow(query, name, phoneNo, msg)
-		if err != nil {
-			return
+		query := `INSERT INTO messages (name, phoneno, msg) VALUES ($1, $2, $3);`
+		_, err := app.db.Exec(query, name, phoneNo, msg)
+		if err != nil { 
+			fmt.Println(err) 
 		}
+
 	}
 	tmpl, err := template.ParseFiles("myown2/m1.html")
 	if err != nil {
@@ -48,22 +38,25 @@ func (app *application) index(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, nil)
 }
 
-func main() {
 
-	// db, err := sql.Open("mysql", "root:freeroam@tcp(localhost:3306)/test")
-	// if err != nil {
-	// 	return
-	// }
+func main() {
 
 	db, err := sql.Open("postgres", "postgres://usermessages_k0v6_user:E7FQKLQ0MhPxlg4Syn8DnWWsMLwHQvVJ@dpg-cl7lsliuuipc73eij48g-a/usermessages_k0v6")
 	if err != nil {
-		fmt.Println(err)
+		return
 	}
+ 
+	// db, err := sql.Open("postgres", "postgres://postgres:root@localhost/postgres?sslmode=disable")
+    // if err != nil { 
+	// 	fmt.Println(err)
+	// }
+
 
 	defer db.Close()
 
 	app := &application{}
 	app.db = db
+
 
 	fmt.Println("Succesfully Connected to Database")
 	http.HandleFunc("/index", app.index)
